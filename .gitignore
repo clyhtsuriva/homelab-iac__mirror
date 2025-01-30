@@ -1,0 +1,17 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Ansible
+*.retry
+
+# Packer
+packer_cache/
+output-*/
+
+# Kubernetes
+kubeconfig
+
+# Docker
+.env
