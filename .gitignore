@@ -9,6 +9,7 @@
 # Packer
 packer_cache/
 output-*/
+credentials.pkr.hcl
 
 # Kubernetes
 kubeconfig
