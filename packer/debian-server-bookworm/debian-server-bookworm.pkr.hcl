@@ -57,13 +57,14 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
   qemu_agent = true
 
   # VM Hard Disk Settings
-  scsi_controller = "virtio-scsi-pci"
+  scsi_controller = "virtio-scsi-single"
 
   disks {
     disk_size     = "20G"
     format        = "raw"
     storage_pool  = "local-lvm"
     type          = "virtio"
+    iothread      = true
   }
 
   # VM CPU Settings
