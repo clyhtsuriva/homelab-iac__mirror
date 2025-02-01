@@ -21,6 +21,11 @@ variable "vm_hostname" {
   default = "debian-server-bookworm-test-1"
 }
 
+variable "ssh_private_key_file" {
+  type    = string
+  default = "~/.ssh/id_ecdsa"
+}
+
 # Resource Definition for the VM Template
 source "proxmox-iso" "debian-server-bookworm-test-1" {
 
@@ -60,11 +65,11 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
   scsi_controller = "virtio-scsi-single"
 
   disks {
-    disk_size     = "20G"
-    format        = "raw"
-    storage_pool  = "local-lvm"
-    type          = "virtio"
-    iothread      = true
+    disk_size    = "20G"
+    format       = "raw"
+    storage_pool = "local-lvm"
+    type         = "virtio"
+    io_thread    = true
   }
 
   # VM CPU Settings
@@ -75,9 +80,9 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
 
   # VM Network Settings
   network_adapters {
-    model     = "virtio"
-    bridge    = "vmbr0"
-    firewall  = "false"
+    model    = "virtio"
+    bridge   = "vmbr0"
+    firewall = "false"
   }
 
   # VM Cloud-Init Settings
@@ -91,7 +96,7 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
   ]
 
   boot         = "c"
-  boot_wait    = "10s"
+  boot_wait    = "20s"
   communicator = "ssh"
 
   # PACKER Autoinstall Settings
@@ -107,7 +112,7 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
   # ssh_password = "your-password"
   # - or -
   # (Option 2) Add your Private SSH KEY file here
-  ssh_private_key_file = "~/.ssh/id_ecdsa"
+  ssh_private_key_file = "${var.ssh_private_key_file}"
 
   # Raise the timeout, when installation takes longer
   ssh_timeout = "30m"
@@ -118,6 +123,17 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
 build {
   name    = "debian-server-bookworm-test-1"
   sources = ["source.proxmox-iso.debian-server-bookworm-test-1"]
+
+  # Using ansible playbooks to configure common base
+  provisioner "ansible" {
+    playbook_file = "../../ansible/playbooks/common.yml"
+    use_proxy     = false
+    user          = "mas"
+    ansible_env_vars = [
+      "ANSIBLE_HOST_KEY_CHECKING=False",
+      "ANSIBLE_CONFIG=${path.root}/../../ansible/ansible.cfg",
+    ]
+  }
 
   # Copy default cloud-init config
   provisioner "file" {

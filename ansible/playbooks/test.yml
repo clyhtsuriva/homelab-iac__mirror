@@ -1,0 +1,13 @@
+---
+- name: Create a file in /root/ called toto with content tata
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure /root/toto exists with content "tata"
+      ansible.builtin.copy:
+        dest: /root/toto
+        content: "tata"
+        owner: root
+        group: root
+        mode: '0644'
+...
