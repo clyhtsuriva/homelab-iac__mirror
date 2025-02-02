@@ -11,6 +11,6 @@ This folder contains Packer templates for creating custom VM images.
 
 ```sh
 cd <image subfolder>
-packer validate -var-file=../credentials.pkr.hcl ./debian-server-bookworm.pkr.hcl
-packer build -var-file=../credentials.pkr.hcl ./debian-server-bookworm.pkr.hcl
+packer validate -var-file=../credentials.pkr.hcl ./<image template>.pkr.hcl
+packer build -var-file=../credentials.pkr.hcl ./<image template>.pkr.hcl
 ```

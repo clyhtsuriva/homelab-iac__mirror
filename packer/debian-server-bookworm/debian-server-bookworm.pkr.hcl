@@ -18,7 +18,7 @@ variable "proxmox_api_token_secret" {
 
 variable "vm_hostname" {
   type    = string
-  default = "debian-server-bookworm-test-1"
+  default = "debian-server-bookworm-12-9-0-amd64"
 }
 
 variable "ssh_private_key_file" {
@@ -27,13 +27,12 @@ variable "ssh_private_key_file" {
 }
 
 # Resource Definition for the VM Template
-source "proxmox-iso" "debian-server-bookworm-test-1" {
+source "proxmox-iso" "debian-server-bookworm-12-9-0-amd64" {
 
   # Proxmox Connection Settings
   proxmox_url = "${var.proxmox_api_url}"
   username    = "${var.proxmox_api_token_id}"
   token       = "${var.proxmox_api_token_secret}"
-  # (Optional) Skip TLS Verification
   insecure_skip_tls_verify = true
 
   # VM General Settings
@@ -43,14 +42,6 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
   template_description = "Debian Server Bookworm Image Test 1"
 
   # VM OS Settings
-  # (Option 1) Local ISO File
-  # iso_file = "local:iso/ubuntu-24.04.1-live-server-amd64.iso"
-  # - or -
-  # (Option 2) Download ISO
-  # iso_url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso"
-  # iso_checksum = "8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
-  # iso_storage_pool = "local"
-  # unmount_iso = true
   boot_iso {
     type         = "scsi"
     iso_file     = "local:iso/debian-12.9.0-amd64-netinst.iso"
@@ -107,11 +98,6 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
   # http_port_max     = 8802
 
   ssh_username = "mas"
-
-  # (Option 1) Add your Password here
-  # ssh_password = "your-password"
-  # - or -
-  # (Option 2) Add your Private SSH KEY file here
   ssh_private_key_file = "${var.ssh_private_key_file}"
 
   # Raise the timeout, when installation takes longer
@@ -121,8 +107,8 @@ source "proxmox-iso" "debian-server-bookworm-test-1" {
 
 # Build Definition to create the VM Template
 build {
-  name    = "debian-server-bookworm-test-1"
-  sources = ["source.proxmox-iso.debian-server-bookworm-test-1"]
+  name    = "debian-server-bookworm-12-9-0-amd64"
+  sources = ["source.proxmox-iso.debian-server-bookworm-12-9-0-amd64"]
 
   # Using ansible playbooks to configure common base
   provisioner "ansible" {
