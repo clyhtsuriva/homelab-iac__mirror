@@ -1,14 +1,34 @@
 # OpenTofu Infrastructure Provisioning
 
-This folder contains OpenTofu configurations and modules for provisioning infrastructure in my homelab environment.
+This repository contains OpenTofu configurations and modules for automating infrastructure provisioning in my homelab environment.
 
-## Structure
+## **Overview**
+OpenTofu is used to define, manage, and provision infrastructure as code (IaC). This setup provides a modular approach for creating and managing infrastructure efficiently.
 
-- **`README.md`**: Project overview.
-- **`examples/`**: Sample configurations demonstrating module usage.
-- **`main.tf`**: Primary entry point for the OpenTofu configuration.
-- **`modules/`**: Reusable OpenTofu modules for provisioning infrastructure.
-- **`outputs.tf`**: Definitions of outputs from the configuration.
-- **`variables.tf`**: Definitions of input variables for the configuration.
-- **`versions.tf`**: Specifies required provider versions.
-- to complete ..
+## **Project Structure**
+- **`README.md`** – Project overview and documentation.
+- **`examples/`** – Sample configurations demonstrating how to use modules in different scenarios.
+- **`main.tf`** – Primary OpenTofu configuration file, orchestrating resource provisioning.
+- **`modules/`** – Reusable OpenTofu modules for provisioning infrastructure components.
+- **`outputs.tf`** – Definitions of outputs to expose key resource attributes.
+- **`provider.tf`** – Configuration for OpenTofu providers, such as Proxmox.
+- **`terraform.tfvars`** – Variable values for customizing deployments.
+- **`variables.tf`** – Definitions of input variables used across the configuration.
+- **`versions.tf`** – Specifies required OpenTofu and provider versions to maintain compatibility.
+
+## **Credentials**
+
+There needs to be a file with credentials in them.
+With this kind of content :
+
+```tf
+proxmox_api_url          = "https://<pve ip/fqdn>:<port>/api2/json"
+proxmox_api_token_id     = "<id>"
+proxmox_api_token_secret = "<token>"
+```
+
+Refer to this :
+
+- https://opentofu.org/docs/language/values/variables/#variable-definition-precedence
+- https://registry.terraform.io/providers/Telmate/proxmox/latest/docs
+
