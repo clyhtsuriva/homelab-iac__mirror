@@ -1,0 +1,7 @@
+proxmox_api_url       = "https://10.0.0.5:8006/api2/json"
+proxmox_node          = "pve"
+packer_image_name     = "debian-server-bookworm-12-9-0-amd64"
+vm_username           = "mas"
+ssh_private_key_path  = "~/.ssh/id_ecdsa"
+ssh_public_key        = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCtB9NZgJMVovVR4foT0OOV9GdHeHZoPtK1TGko2W4wli/reKjpUYBhlSPWbaWD9WUbl0RRqdzkODy1fB001zxs= mas@TMV2"
+ansible_playbook_path = "../ansible/playbooks/docker.yml"

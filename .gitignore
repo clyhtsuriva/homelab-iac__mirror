@@ -2,6 +2,8 @@
 .terraform/
 *.tfstate
 *.tfstate.backup
+*.lock.hcl
+credentials.auto.tfvars
 
 # Ansible
 *.retry

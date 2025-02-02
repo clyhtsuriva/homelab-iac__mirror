@@ -1,7 +1,14 @@
-# OpenTofu Configurations
+# OpenTofu Infrastructure Provisioning
 
-This folder contains OpenTofu configurations for provisioning infrastructure in my homelab.
+This folder contains OpenTofu configurations and modules for provisioning infrastructure in my homelab environment.
 
 ## Structure
-- **modules/**: Reusable OpenTofu modules (e.g., VM, network).
-- **environments/**: Environment-specific configurations (e.g., dev, prod).
+
+- **`README.md`**: Project overview.
+- **`examples/`**: Sample configurations demonstrating module usage.
+- **`main.tf`**: Primary entry point for the OpenTofu configuration.
+- **`modules/`**: Reusable OpenTofu modules for provisioning infrastructure.
+- **`outputs.tf`**: Definitions of outputs from the configuration.
+- **`variables.tf`**: Definitions of input variables for the configuration.
+- **`versions.tf`**: Specifies required provider versions.
+- to complete ..
