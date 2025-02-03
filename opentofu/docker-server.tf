@@ -1,12 +1,18 @@
 resource "proxmox_vm_qemu" "docker_server" {
 
+  lifecycle {
+    ignore_changes = [
+      bootdisk,
+    ]
+  }
+
   name        = "docker-server"
   desc        = "Debian server with docker installed."
   agent       = 1 # Qemu Guest Agent
   target_node = var.proxmox_node
-  tags        = "debian,docker"
+  tags        = "debian;docker"
 
-  clone      = var.packer_image_name
+  clone      = var.debian_server_bookworm_packer_image_name
   full_clone = true
 
   qemu_os  = "other"

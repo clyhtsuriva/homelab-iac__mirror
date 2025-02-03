@@ -8,7 +8,6 @@ OpenTofu is used to define, manage, and provision infrastructure as code (IaC). 
 ## **Project Structure**
 - **`README.md`** – Project overview and documentation.
 - **`examples/`** – Sample configurations demonstrating how to use modules in different scenarios.
-- **`main.tf`** – Primary OpenTofu configuration file, orchestrating resource provisioning.
 - **`modules/`** – Reusable OpenTofu modules for provisioning infrastructure components.
 - **`outputs.tf`** – Definitions of outputs to expose key resource attributes.
 - **`provider.tf`** – Configuration for OpenTofu providers, such as Proxmox.
