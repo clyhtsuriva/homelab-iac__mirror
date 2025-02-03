@@ -1,0 +1,8 @@
+---
+- name: Deploy a Production Ready Kubernetes Cluster
+  hosts: all
+  become: true
+
+# Import kubespray playbook to deploy k8s cluster
+- import_playbook: ../kubespray/cluster.yml
+...

@@ -3,7 +3,6 @@ locals {
     [proxmox_vm_qemu.k8s_cp],
     proxmox_vm_qemu.k8s_worker,
     [proxmox_vm_qemu.docker_server],
-    [proxmox_vm_qemu.ubuntu_server_noble]
   ])
 }
 

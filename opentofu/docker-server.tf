@@ -56,21 +56,11 @@ resource "proxmox_vm_qemu" "docker_server" {
   sshkeys   = var.ssh_public_key
 }
 
-# Run Ansible playbook after VM creation
-resource "null_resource" "ansible_provisioner" {
-  triggers = {
-    vm_id = proxmox_vm_qemu.docker_server.id
-  }
-
-  provisioner "local-exec" {
-    command = <<-EOT
-      ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${path.root}/../ansible/ansible.cfg ansible-playbook \
-        -i '${proxmox_vm_qemu.docker_server.default_ipv4_address},' \
-        -u ${var.vm_username} \
-        --private-key ${var.ssh_private_key_path} \
-        ${var.ansible_playbook_path}
-    EOT
-  }
-
-  depends_on = [proxmox_vm_qemu.docker_server]
+# Run Ansible playbook after VM creation to install Docker
+module "ansible_provision_docker_server" {
+  source                = "./modules/ansible_provisioner"
+  vm_ip                 = proxmox_vm_qemu.docker_server.default_ipv4_address # Pass only the VM's IP
+  vm_username           = var.vm_username
+  ssh_private_key_path  = var.ssh_private_key_path
+  ansible_playbook_path = var.docker_ansible_playbook_path
 }

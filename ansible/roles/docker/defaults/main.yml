@@ -1,6 +1,11 @@
 ---
-docker_repo: "https://download.docker.com/linux/debian"
-docker_gpg_key_url: "https://download.docker.com/linux/debian/gpg"
+docker_repos:
+  Debian: "https://download.docker.com/linux/debian"
+  Ubuntu: "https://download.docker.com/linux/ubuntu"
+
+docker_gpg_keys:
+  Debian: "https://download.docker.com/linux/debian/gpg"
+  Ubuntu: "https://download.docker.com/linux/ubuntu/gpg"
 
 docker_packages:
   - docker-ce

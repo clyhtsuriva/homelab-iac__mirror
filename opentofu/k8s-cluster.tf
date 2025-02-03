@@ -115,22 +115,11 @@ resource "proxmox_vm_qemu" "k8s_worker" {
   sshkeys   = var.ssh_public_key
 }
 
-
-## Run Ansible playbook after VM creation
-#resource "null_resource" "ansible_provisioner" {
-#  triggers = {
-#    vm_id = proxmox_vm_qemu.k8s-[worker][cp]-[count.index].id
-#  }
-#
-#  provisioner "local-exec" {
-#    command = <<-EOT
-#      ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${path.root}/../ansible/ansible.cfg ansible-playbook \
-#	-i '${proxmox_vm_qemu.k8s-[worker][cp]-[count.index].default_ipv4_address},' \
-#	-u ${var.vm_username} \
-#	--private-key ${var.ssh_private_key_path} \
-#	${var.ansible_playbook_path}
-#    EOT
-#  }
-#
-#  depends_on = [proxmox_vm_qemu.docker_server]
-#}
+# Provision the control plane node and the workers
+module "ansible_provision_k8s" {
+  source                = "./modules/ansible_provisioner"
+  inventory_file_path   = local_file.ansible_inventory.filename # Pass inventory path here
+  vm_username           = var.vm_username
+  ssh_private_key_path  = var.ssh_private_key_path
+  ansible_playbook_path = var.k8s_ansible_playbook_path
+}
