@@ -15,6 +15,15 @@ OpenTofu is used to define, manage, and provision infrastructure as code (IaC). 
 - **`variables.tf`** – Definitions of input variables used across the configuration.
 - **`versions.tf`** – Specifies required OpenTofu and provider versions to maintain compatibility.
 
+## **Script**
+
+Created a small script to init, fmt, and plan.
+
+```sh
+./init-validate-plan.sh plan.out
+tofu apply "plan.out"
+```
+
 ## **Credentials**
 
 There needs to be a file with credentials in them.
