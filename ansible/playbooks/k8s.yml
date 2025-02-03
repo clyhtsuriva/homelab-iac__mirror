@@ -2,6 +2,8 @@
 - name: Deploy a Production Ready Kubernetes Cluster
   hosts: all
   become: true
+  roles:
+    - role: k8s
 
 - name: Import kubespray playbook to deploy k8s cluster
   ansible.builtin.import_playbook: ../kubespray/cluster.yml

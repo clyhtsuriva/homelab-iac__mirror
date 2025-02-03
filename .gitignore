@@ -4,6 +4,7 @@
 *.tfstate.backup
 *.lock.hcl
 credentials.auto.tfvars
+*.out
 
 # Ansible
 *.retry

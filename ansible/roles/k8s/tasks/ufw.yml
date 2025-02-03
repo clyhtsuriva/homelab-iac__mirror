@@ -1,0 +1,64 @@
+---
+- name: Ensure UFW is installed
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: Allow Kubernetes API server (6443)
+  community.general.ufw:
+    rule: allow
+    port: 6443
+    proto: tcp
+    comment: "Kubernetes API server"
+
+- name: Allow etcd server client API (2379-2380)
+  community.general.ufw:
+    rule: allow
+    port: "2379:2380"
+    proto: tcp
+    comment: "etcd server client API"
+
+- name: Allow Kubelet API (10250)
+  community.general.ufw:
+    rule: allow
+    port: 10250
+    proto: tcp
+    comment: "Kubelet API"
+
+- name: Allow kube-scheduler (10259)
+  community.general.ufw:
+    rule: allow
+    port: 10259
+    proto: tcp
+    comment: "kube-scheduler"
+
+- name: Allow kube-controller-manager (10257)
+  community.general.ufw:
+    rule: allow
+    port: 10257
+    proto: tcp
+    comment: "kube-controller-manager"
+
+- name: Allow kube-proxy (10256)
+  community.general.ufw:
+    rule: allow
+    port: 10256
+    proto: tcp
+    comment: "kube-proxy"
+
+- name: Allow NodePort services (30000-32767)
+  community.general.ufw:
+    rule: allow
+    port: "30000:32767"
+    proto: tcp
+    comment: "NodePort services"
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+
+- name: Ensure UFW is enabled on boot
+  ansible.builtin.systemd:
+    name: ufw
+    enabled: true
+...
