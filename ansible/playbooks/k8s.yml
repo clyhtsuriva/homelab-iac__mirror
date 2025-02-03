@@ -3,6 +3,6 @@
   hosts: all
   become: true
 
-# Import kubespray playbook to deploy k8s cluster
-- import_playbook: ../kubespray/cluster.yml
+- name: Import kubespray playbook to deploy k8s cluster
+  ansible.builtin.import_playbook: ../kubespray/cluster.yml
 ...
