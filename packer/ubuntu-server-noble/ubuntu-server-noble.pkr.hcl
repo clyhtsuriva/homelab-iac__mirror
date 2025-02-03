@@ -18,30 +18,20 @@ variable "proxmox_api_token_secret" {
 
 
 # Resource Definiation for the VM Template
-source "proxmox-iso" "ubuntu-server-noble-test-1" {
+source "proxmox-iso" "ubuntu-server-noble-24-04-1-amd64" {
 
   # Proxmox Connection Settings
-  proxmox_url = "${var.proxmox_api_url}"
-  username    = "${var.proxmox_api_token_id}"
-  token       = "${var.proxmox_api_token_secret}"
-  # (Optional) Skip TLS Verification
+  proxmox_url              = "${var.proxmox_api_url}"
+  username                 = "${var.proxmox_api_token_id}"
+  token                    = "${var.proxmox_api_token_secret}"
   insecure_skip_tls_verify = true
 
   # VM General Settings
   node                 = "pve"
   vm_id                = "101"
-  vm_name              = "ubuntu-server-noble-test-1"
-  template_description = "Ubuntu Server Noble Image Test 1"
+  vm_name              = "ubuntu-server-noble-24-04-1-amd64"
+  template_description = "Ubuntu Server Noble 24.04.1 amd64"
 
-  # VM OS Settings
-  # (Option 1) Local ISO File
-  # iso_file = "local:iso/ubuntu-24.04.1-live-server-amd64.iso"
-  # - or -
-  # (Option 2) Download ISO
-  # iso_url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso"
-  # iso_checksum = "8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
-  # iso_storage_pool = "local"
-  # unmount_iso = true
   boot_iso {
     type         = "scsi"
     iso_file     = "local:iso/ubuntu-24.04.1-live-server-amd64.iso"
@@ -54,13 +44,14 @@ source "proxmox-iso" "ubuntu-server-noble-test-1" {
   qemu_agent = true
 
   # VM Hard Disk Settings
-  scsi_controller = "virtio-scsi-pci"
+  scsi_controller = "virtio-scsi-single"
 
   disks {
     disk_size    = "20G"
     format       = "raw"
     storage_pool = "local-lvm"
     type         = "virtio"
+    io_thread    = true
   }
 
   # VM CPU Settings
@@ -96,17 +87,8 @@ source "proxmox-iso" "ubuntu-server-noble-test-1" {
 
   # PACKER Autoinstall Settings
   http_directory = "http"
-  # (Optional) Bind IP Address and Port
-  # http_bind_address       = "0.0.0.0"
-  # http_port_min           = 8802
-  # http_port_max           = 8802
 
-  ssh_username = "mas"
-
-  # (Option 1) Add your Password here
-  # ssh_password        = "your-password"
-  # - or -
-  # (Option 2) Add your Private SSH KEY file here
+  ssh_username         = "mas"
   ssh_private_key_file = "~/.ssh/id_ecdsa"
 
   # Raise the timeout, when installation takes longer
@@ -117,10 +99,21 @@ source "proxmox-iso" "ubuntu-server-noble-test-1" {
 # Build Definition to create the VM Template
 build {
 
-  name    = "ubuntu-server-noble-test-1"
-  sources = ["source.proxmox-iso.ubuntu-server-noble-test-1"]
+  name    = "ubuntu-server-noble-24-04-1-amd64"
+  sources = ["source.proxmox-iso.ubuntu-server-noble-24-04-1-amd64"]
 
-  # Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
+# Using ansible playbooks to configure common base
+provisioner "ansible" {
+  playbook_file = "../../ansible/playbooks/common.yml"
+  use_proxy     = false
+  user          = "mas"
+  ansible_env_vars = [
+    "ANSIBLE_HOST_KEY_CHECKING=False",
+    "ANSIBLE_CONFIG=${path.root}/../../ansible/ansible.cfg",
+  ]
+}
+
+  # Provisioning the VM Template for Cloud-Init Integration in Proxmox
   provisioner "shell" {
     inline = [
       "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
@@ -136,13 +129,13 @@ build {
     ]
   }
 
-  # Provisioning the VM Template for Cloud-Init Integration in Proxmox #2
+  # Provisioning the VM Template for Cloud-Init Integration in Proxmox
   provisioner "file" {
     source      = "files/99-pve.cfg"
     destination = "/tmp/99-pve.cfg"
   }
 
-  # Provisioning the VM Template for Cloud-Init Integration in Proxmox #3
+  # Provisioning the VM Template for Cloud-Init Integration in Proxmox
   provisioner "shell" {
     inline = ["sudo cp /tmp/99-pve.cfg /etc/cloud/cloud.cfg.d/99-pve.cfg"]
   }

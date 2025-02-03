@@ -13,8 +13,8 @@ autoinstall:
   packages:
     - qemu-guest-agent
     - sudo
-    - neovim
-    - tmux
+    - cloud-init
+    - ufw
   storage:
     layout:
       name: direct

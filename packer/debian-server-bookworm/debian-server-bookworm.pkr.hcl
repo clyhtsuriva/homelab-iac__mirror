@@ -30,16 +30,16 @@ variable "ssh_private_key_file" {
 source "proxmox-iso" "debian-server-bookworm-12-9-0-amd64" {
 
   # Proxmox Connection Settings
-  proxmox_url = "${var.proxmox_api_url}"
-  username    = "${var.proxmox_api_token_id}"
-  token       = "${var.proxmox_api_token_secret}"
+  proxmox_url              = "${var.proxmox_api_url}"
+  username                 = "${var.proxmox_api_token_id}"
+  token                    = "${var.proxmox_api_token_secret}"
   insecure_skip_tls_verify = true
 
   # VM General Settings
   node                 = "pve"
   vm_id                = "100"
   vm_name              = "${var.vm_hostname}"
-  template_description = "Debian Server Bookworm Image Test 1"
+  template_description = "Debian Server Bookworm 12.9.0 amd64"
 
   # VM OS Settings
   boot_iso {
@@ -97,7 +97,7 @@ source "proxmox-iso" "debian-server-bookworm-12-9-0-amd64" {
   # http_port_min     = 8802
   # http_port_max     = 8802
 
-  ssh_username = "mas"
+  ssh_username         = "mas"
   ssh_private_key_file = "${var.ssh_private_key_file}"
 
   # Raise the timeout, when installation takes longer
