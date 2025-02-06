@@ -1,7 +1,7 @@
 locals {
   all_vms = flatten([
-    [proxmox_vm_qemu.k8s_cp],
-    proxmox_vm_qemu.k8s_worker,
+    [module.k8s_control_plane.vm],
+    module.k8s_worker.vms,
     [proxmox_vm_qemu.docker_server],
   ])
 }
