@@ -6,6 +6,8 @@
 credentials.auto.tfvars
 *.out
 
+inventory.ini
+
 # Ansible
 *.retry
 
