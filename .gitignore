@@ -10,6 +10,7 @@ inventory.ini
 
 # Ansible
 *.retry
+inventory.yaml
 
 # Packer
 packer_cache/

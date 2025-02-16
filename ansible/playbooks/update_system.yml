@@ -1,0 +1,7 @@
+---
+- name: Update the server
+  hosts: all
+  become: true
+  roles:
+    - update_system
+...

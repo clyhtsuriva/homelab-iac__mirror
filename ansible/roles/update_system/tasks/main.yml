@@ -1,0 +1,16 @@
+---
+- name: Update and upgrade system packages (Debian-based)
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: true
+    autoremove: true
+  when: ansible_pkg_mgr == "apt"
+
+- name: Update and upgrade system packages (RedHat-based)
+  ansible.builtin.dnf:
+    update_cache: true
+    name: "*"
+    state: present
+    autoremove: true
+  when: ansible_pkg_mgr == "dnf"
+...
