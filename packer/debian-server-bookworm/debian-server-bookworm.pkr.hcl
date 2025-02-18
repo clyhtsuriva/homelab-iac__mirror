@@ -37,7 +37,7 @@ source "proxmox-iso" "debian-server-bookworm-12-9-0-amd64" {
 
   # VM General Settings
   node                 = "pve"
-  vm_id                = "100"
+  vm_id                = "999"
   vm_name              = "${var.vm_hostname}"
   template_description = "Debian Server Bookworm 12.9.0 amd64"
 

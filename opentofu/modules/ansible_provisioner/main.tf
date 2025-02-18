@@ -1,6 +1,6 @@
 resource "null_resource" "ansible_provisioner" {
   triggers = {
-    ip_or_inventory = coalesce(var.vm_ip, var.inventory_file_path)  # Choose based on what is provided
+    ip_or_inventory = coalesce(var.vm_ip, var.inventory_file_path) # Choose based on what is provided
   }
 
   provisioner "local-exec" {

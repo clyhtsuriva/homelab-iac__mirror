@@ -3,8 +3,8 @@ terraform {
 
   required_providers {
     proxmox = {
-      source  = "telmate/proxmox"
-      version = "3.0.1-rc6"
+      source  = "bpg/proxmox"
+      version = "0.72.0"
     }
     local = {
       source  = "hashicorp/local"

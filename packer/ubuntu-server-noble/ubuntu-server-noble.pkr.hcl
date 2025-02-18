@@ -28,7 +28,7 @@ source "proxmox-iso" "ubuntu-server-noble-24-04-1-amd64" {
 
   # VM General Settings
   node                 = "pve"
-  vm_id                = "101"
+  vm_id                = "998"
   vm_name              = "ubuntu-server-noble-24-04-1-amd64"
   template_description = "Ubuntu Server Noble 24.04.1 amd64"
 

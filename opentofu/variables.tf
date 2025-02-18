@@ -3,14 +3,9 @@ variable "proxmox_api_url" {
   type        = string
 }
 
-variable "proxmox_api_token_id" {
+variable "proxmox_api_token" {
   type = string
 }
-
-variable "proxmox_api_token_secret" {
-  type = string
-}
-
 
 variable "proxmox_node" {
   description = "Proxmox node to deploy the VM on"
@@ -20,6 +15,10 @@ variable "proxmox_node" {
 variable "debian_server_bookworm_packer_image_name" {
   description = "Name of the Packer image to clone"
   type        = string
+}
+
+variable "debian_server_bookworm_packer_image_id" {
+  type = string
 }
 
 variable "ubuntu_server_noble_packer_image_name" {
