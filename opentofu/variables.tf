@@ -26,6 +26,10 @@ variable "ubuntu_server_noble_packer_image_name" {
   type        = string
 }
 
+variable "ubuntu_server_noble_packer_image_id" {
+  type = string
+}
+
 variable "vm_username" {
   description = "Username for SSH access to the VM"
   type        = string
