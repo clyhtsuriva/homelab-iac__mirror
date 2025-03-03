@@ -12,18 +12,8 @@ variable "proxmox_node" {
   type        = string
 }
 
-variable "debian_server_bookworm_packer_image_name" {
-  description = "Name of the Packer image to clone"
-  type        = string
-}
-
 variable "debian_server_bookworm_packer_image_id" {
   type = string
-}
-
-variable "ubuntu_server_noble_packer_image_name" {
-  description = "Name of the Packer image to clone"
-  type        = string
 }
 
 variable "ubuntu_server_noble_packer_image_id" {
@@ -55,16 +45,3 @@ variable "k8s_ansible_playbook_path" {
   description = "Path to the Ansible playbook for k8s installation"
   type        = string
 }
-
-variable "k8s_worker_vm_name_prefix" {
-  description = "VM name prefix"
-  default     = "k8s-worker"
-  type        = string
-}
-
-variable "k8s_worker_vm_count" {
-  description = "Number of servers"
-  default     = 2
-  type        = string
-}
-
