@@ -1,6 +1,6 @@
 ---
 - name: Install Docker on Ubuntu or Debian
-  hosts: all
+  hosts: tag_docker
   become: true
   roles:
     - role: docker

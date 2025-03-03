@@ -11,6 +11,7 @@ inventory.ini
 # Ansible
 *.retry
 inventory.yaml
+.vault_password
 
 # Packer
 packer_cache/

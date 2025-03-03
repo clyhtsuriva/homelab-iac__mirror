@@ -1,0 +1,20 @@
+---
+- name: Download k3s installer
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: /tmp/install_k3s.sh
+    mode: '0755'
+
+- name: Install k3s server
+  ansible.builtin.command: /tmp/install_k3s.sh server --cluster-init
+  become: true
+
+- name: Retrieve k3s token
+  ansible.builtin.slurp:
+    path: /var/lib/rancher/k3s/server/node-token
+  register: k3s_token_file
+
+- name: Set k3s token as a fact, for workers
+  ansible.builtin.set_fact:
+    k3s_token: "{{ k3s_token_file.content | b64decode }}"
+...

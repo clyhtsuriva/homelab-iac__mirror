@@ -1,0 +1,8 @@
+---
+# Bootstrap playbook for post-provisioning tasks.
+- name: Include Docker playbook if the host has the 'tag_docker' tag
+  ansible.builtin.import_playbook: docker.yml
+
+- name: Include K8s playbook if the host is a k3s master or worker
+  ansible.builtin.import_playbook: k8s.yml
+...

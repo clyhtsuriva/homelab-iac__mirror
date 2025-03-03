@@ -1,4 +1,12 @@
 ---
 - name: Include UFW tasks
   ansible.builtin.include_tasks: ufw.yml
+
+- name: Install k3s on master nodes
+  ansible.builtin.include_tasks: install_k3s_master.yml
+  when: inventory_hostname in groups['tag_k3s_master']
+
+- name: Install k3s on worker nodes
+  ansible.builtin.include_tasks: install_k3s_worker.yml
+  when: inventory_hostname in groups['tag_k3s_worker']
 ...
