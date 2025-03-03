@@ -35,13 +35,3 @@ variable "ssh_public_key" {
   type      = string
   sensitive = true
 }
-
-variable "docker_ansible_playbook_path" {
-  description = "Path to the Ansible playbook for Docker installation"
-  type        = string
-}
-
-variable "k8s_ansible_playbook_path" {
-  description = "Path to the Ansible playbook for k8s installation"
-  type        = string
-}

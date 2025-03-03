@@ -1,6 +1,9 @@
+# Define all VMs
 locals {
   all_vms = flatten([
     [proxmox_virtual_environment_vm.docker_server],
+    [for vm in proxmox_virtual_environment_vm.k3s_master : vm],
+    [for vm in proxmox_virtual_environment_vm.k3s_worker : vm]
   ])
 }
 
