@@ -3,17 +3,36 @@
   ansible.builtin.set_fact:
     k3s_token: "{{ hostvars[groups['tag_k3s_master'][0]].k3s_token }}"
     k3s_master_ip: "{{ hostvars[groups['tag_k3s_master'][0]].ansible_default_ipv4.address }}"
+  when: hostvars[groups['tag_k3s_master'][0]].k3s_token is defined
 
-- name: Download k3s installation script
-  ansible.builtin.get_url:
-    url: https://get.k3s.io
-    dest: /tmp/install_k3s.sh
+- name: Ensure /opt/k3s directory exists
+  ansible.builtin.file:
+    path: /opt/k3s
+    state: directory
     mode: '0755'
 
-- name: Install k3s agent
+- name: Check if k3s installer script already exists
+  ansible.builtin.stat:
+    path: /opt/k3s/install_k3s.sh
+  register: k3s_installer_script
+
+- name: Download k3s installation script if not already present
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: /opt/k3s/install_k3s.sh
+    mode: '0755'
+  when: not k3s_installer_script.stat.exists
+
+- name: Check if k3s agent is already installed
+  ansible.builtin.stat:
+    path: /var/lib/rancher/k3s/agent
+  register: k3s_agent_installed
+
+- name: Install k3s agent if not already installed
   ansible.builtin.command: >
-    /tmp/install_k3s.sh agent
+    /opt/k3s/install_k3s.sh agent
     --server https://{{ k3s_master_ip }}:6443
     --token {{ k3s_token }}
   become: true
+  when: not k3s_agent_installed.stat.exists
 ...

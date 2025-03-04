@@ -1,20 +1,40 @@
 ---
-- name: Download k3s installer
-  ansible.builtin.get_url:
-    url: https://get.k3s.io
-    dest: /tmp/install_k3s.sh
+- name: Ensure /opt/k3s directory exists
+  ansible.builtin.file:
+    path: /opt/k3s
+    state: directory
     mode: '0755'
 
-- name: Install k3s server
-  ansible.builtin.command: /tmp/install_k3s.sh server --cluster-init
+- name: Check if k3s installer script already exists
+  ansible.builtin.stat:
+    path: /opt/k3s/install_k3s.sh
+  register: k3s_installer_script
+
+- name: Download k3s installer if not already present
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: /opt/k3s/install_k3s.sh
+    mode: '0755'
+  when: not k3s_installer_script.stat.exists
+
+- name: Check if k3s is already installed (master)
+  ansible.builtin.stat:
+    path: /var/lib/rancher/k3s/server/node-token
+  register: k3s_installed
+
+- name: Install k3s server if not already installed
+  ansible.builtin.command: /opt/k3s/install_k3s.sh server --cluster-init
   become: true
+  when: not k3s_installed.stat.exists
 
 - name: Retrieve k3s token
   ansible.builtin.slurp:
     path: /var/lib/rancher/k3s/server/node-token
   register: k3s_token_file
+  when: not k3s_installed.stat.exists
 
 - name: Set k3s token as a fact, for workers
   ansible.builtin.set_fact:
     k3s_token: "{{ k3s_token_file.content | b64decode }}"
+  when: k3s_token_file is defined and k3s_token_file.content is defined
 ...
