@@ -20,7 +20,7 @@ proxmox_usable: (proxmox_status == "running")
 
 # Group VMs by tags for reference in playbooks.
 keyed_groups:
-  # proxmox_tags_parsed is an example of a fact only returned when 'want_facts=true'
+  # proxmox_tags_parsed is only returned when 'want_facts=true'
   - key: proxmox_tags_parsed
     separator: ""
     prefix: "tag_"

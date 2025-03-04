@@ -26,11 +26,6 @@ variable "vm_username" {
   default     = "mas"
 }
 
-variable "ssh_private_key_path" {
-  description = "Path to the SSH private key for Ansible"
-  type        = string
-}
-
 variable "ssh_public_key" {
   type      = string
   sensitive = true

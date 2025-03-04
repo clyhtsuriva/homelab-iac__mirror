@@ -102,16 +102,16 @@ build {
   name    = "ubuntu-server-noble-24-04-1-amd64"
   sources = ["source.proxmox-iso.ubuntu-server-noble-24-04-1-amd64"]
 
-# Using ansible playbooks to configure common base
-provisioner "ansible" {
-  playbook_file = "../../ansible/playbooks/common.yml"
-  use_proxy     = false
-  user          = "mas"
-  ansible_env_vars = [
-    "ANSIBLE_HOST_KEY_CHECKING=False",
-    "ANSIBLE_CONFIG=${path.root}/../../ansible/ansible.cfg",
-  ]
-}
+  # Using ansible playbooks to configure common base
+  provisioner "ansible" {
+    playbook_file = "../../ansible/playbooks/common.yml"
+    use_proxy     = false
+    user          = "mas"
+    ansible_env_vars = [
+      "ANSIBLE_HOST_KEY_CHECKING=False",
+      "ANSIBLE_CONFIG=${path.root}/../../ansible/ansible.cfg",
+    ]
+  }
 
   # Provisioning the VM Template for Cloud-Init Integration in Proxmox
   provisioner "shell" {

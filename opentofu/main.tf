@@ -107,7 +107,7 @@ resource "proxmox_virtual_environment_vm" "k3s_master" {
 
 # Worker Nodes
 resource "proxmox_virtual_environment_vm" "k3s_worker" {
-  count     = 1
+  count     = 3
   name      = "k3s-worker-${count.index}"
   node_name = var.proxmox_node
   tags      = ["debian", "k8s", "k3s_worker"]
