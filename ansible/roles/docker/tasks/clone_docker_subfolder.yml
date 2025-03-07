@@ -1,0 +1,43 @@
+---
+- name: Ensure Git is installed
+  ansible.builtin.package:
+    name: git
+    state: present
+
+- name: Ensure repository is cloned
+  ansible.builtin.git:
+    # Using the mirror, as git.adjutor.xyz is a dumb http
+    repo: "https://github.com/clyhtsuriva/homelab-iac__mirror.git"
+    dest: "/opt/homelab-iac"
+    version: master
+    depth: 1
+    clone: true
+    update: false
+    bare: false
+
+- name: Check if sparse checkout is already enabled
+  ansible.builtin.command:
+    cmd: git config core.sparseCheckout
+    chdir: "/opt/homelab-iac"
+  register: sparse_checkout_status
+  ignore_errors: true
+  changed_when: false
+
+- name: Enable sparse checkout (cone mode) if not already enabled
+  ansible.builtin.command:
+    cmd: git sparse-checkout init --cone
+    chdir: "/opt/homelab-iac"
+  when: sparse_checkout_status.rc != 0
+
+- name: Check if the sparse checkout directory is already set
+  ansible.builtin.command:
+    cmd: git sparse-checkout list
+    chdir: "/opt/homelab-iac"
+  register: sparse_checkout_list
+  changed_when: false
+
+- name: Set the sparse checkout path if not already set
+  ansible.builtin.command:
+    cmd: git sparse-checkout set docker
+    chdir: "/opt/homelab-iac"
+  when: "'docker' not in sparse_checkout_list.stdout"
