@@ -16,10 +16,4 @@
         name: nginx
         state: started
         enabled: true
-
-  handlers:
-    - name: Restart nginx
-      ansible.builtin.service:
-        name: nginx
-        state: restarted
 ...

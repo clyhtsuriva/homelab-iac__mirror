@@ -9,6 +9,7 @@
     rule: allow
     name: OpenSSH
     comment: "Allow SSH"
+  notify: Restart UFW
 
 - name: Allow HTTP
   community.general.ufw:
@@ -16,6 +17,7 @@
     port: 80
     proto: tcp
     comment: "Allow HTTP"
+  notify: Restart UFW
 
 - name: Allow HTTPS
   community.general.ufw:
@@ -23,6 +25,7 @@
     port: 443
     proto: tcp
     comment: "Allow HTTPS"
+  notify: Restart UFW
 
 - name: Enable UFW
   community.general.ufw:

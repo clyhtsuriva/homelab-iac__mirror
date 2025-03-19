@@ -10,6 +10,7 @@
     port: 6443
     proto: tcp
     comment: "Kubernetes API server"
+  notify: Restart UFW
 
 - name: Allow etcd server client API (2379-2380)
   community.general.ufw:
@@ -17,6 +18,7 @@
     port: "2379:2380"
     proto: tcp
     comment: "etcd server client API"
+  notify: Restart UFW
 
 - name: Allow Kubelet API (10250)
   community.general.ufw:
@@ -24,6 +26,7 @@
     port: 10250
     proto: tcp
     comment: "Kubelet API"
+  notify: Restart UFW
 
 - name: Allow kube-scheduler (10259)
   community.general.ufw:
@@ -31,6 +34,7 @@
     port: 10259
     proto: tcp
     comment: "kube-scheduler"
+  notify: Restart UFW
 
 - name: Allow kube-controller-manager (10257)
   community.general.ufw:
@@ -38,6 +42,7 @@
     port: 10257
     proto: tcp
     comment: "kube-controller-manager"
+  notify: Restart UFW
 
 - name: Allow kube-proxy (10256)
   community.general.ufw:
@@ -45,6 +50,7 @@
     port: 10256
     proto: tcp
     comment: "kube-proxy"
+  notify: Restart UFW
 
 - name: Allow NodePort services (30000-32767)
   community.general.ufw:
@@ -52,6 +58,7 @@
     port: "30000:32767"
     proto: tcp
     comment: "NodePort services"
+  notify: Restart UFW
 
 - name: Enable UFW
   community.general.ufw:
