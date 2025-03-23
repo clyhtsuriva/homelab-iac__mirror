@@ -8,3 +8,7 @@ This repository contains Infrastructure as Code (IaC) configurations for my home
 - **packer/**: Packer templates for creating custom VM images.
 - **kubernetes/**: Kubernetes cluster and application configurations.
 - **docker/**: Docker Compose files for containerized services.
+
+## Disclaimer
+
+This repository is for testing and learning purposes. The code may not match the current setup in my live homelab environment. Use at your own risk.
