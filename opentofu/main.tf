@@ -107,7 +107,7 @@ resource "proxmox_virtual_environment_vm" "k3s_master" {
 
 # Worker Nodes
 resource "proxmox_virtual_environment_vm" "k3s_worker" {
-  count     = 3
+  count     = 2
   name      = "k3s-worker-${count.index}"
   node_name = var.proxmox_node
   tags      = ["debian", "k8s", "k3s_worker"]
@@ -122,13 +122,13 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
   }
 
   cpu {
-    cores   = 1
+    cores   = 4
     sockets = 1
     type    = "host"
   }
 
   memory {
-    dedicated = 512
+    dedicated = 4096
   }
 
   disk {
