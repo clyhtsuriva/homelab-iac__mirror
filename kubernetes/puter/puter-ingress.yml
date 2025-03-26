@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: puter-ingress
+  annotations:
+    traefik.ingress.kubernetes.io/request-headers: |
+      Host=puter.local
+spec:
+  rules:
+  - host: puter.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: puter
+            port:
+              number: 4100
+...
