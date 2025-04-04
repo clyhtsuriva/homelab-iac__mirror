@@ -1,7 +1,4 @@
 ---
 - name: Install Docker
   ansible.builtin.include_tasks: install_docker.yml
-
-- name: Clone the Docker subfolder
-  ansible.builtin.include_tasks: clone_docker_subfolder.yml
 ...
