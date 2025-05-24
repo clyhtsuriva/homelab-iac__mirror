@@ -1,4 +1,5 @@
-proxmox_api_url                        = "https://10.0.0.5:8006/api2/json"
+proxmox_api_url = "https://10.0.0.5:8006/api2/json"
+#proxmox_api_url                        = "https://192.168.1.10:8006/api2/json"
 proxmox_node                           = "pve"
 debian_server_bookworm_packer_image_id = "999"
 ubuntu_server_noble_packer_image_id    = "998"
