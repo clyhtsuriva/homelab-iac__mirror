@@ -9,7 +9,7 @@
     name: "{{ docker_dependencies }}"
     state: present
     update_cache: true
-    lock_timeout: 60
+    lock_timeout: 180  # 3m
 
 - name: Ensure /etc/apt/keyrings directory exists
   ansible.builtin.file:
@@ -36,7 +36,7 @@
     name: "{{ docker_packages }}"
     state: present
     update_cache: true
-    lock_timeout: 60
+    lock_timeout: 180  # 3m
 
 - name: Ensure Docker service is started and enabled
   ansible.builtin.systemd:

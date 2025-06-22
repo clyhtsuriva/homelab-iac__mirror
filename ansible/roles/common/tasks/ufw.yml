@@ -2,6 +2,7 @@
 - name: Ensure UFW is installed
   ansible.builtin.apt:
     name: ufw
+    lock_timeout: 180  # 3m
     state: present
 
 - name: Allow SSH
