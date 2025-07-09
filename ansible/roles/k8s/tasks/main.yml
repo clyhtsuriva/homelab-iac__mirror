@@ -9,4 +9,8 @@
 - name: Install k3s on worker nodes
   ansible.builtin.include_tasks: install_k3s_worker.yml
   when: inventory_hostname in groups['tag_k3s_worker']
+
+- name: Install helm on master nodes
+  ansible.builtin.include_tasks: install_helm.yml
+  when: inventory_hostname in groups['tag_k3s_master']
 ...
