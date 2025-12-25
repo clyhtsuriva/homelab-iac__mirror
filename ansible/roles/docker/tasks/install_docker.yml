@@ -1,8 +1,8 @@
 ---
 - name: Set Docker repository variables based on OS
   ansible.builtin.set_fact:
-    docker_repo: "{{ docker_repos[ansible_distribution] }}"
-    docker_gpg_key_url: "{{ docker_gpg_keys[ansible_distribution] }}"
+    docker_repo: "{{ docker_repos[ansible_facts['distribution']] }}"
+    docker_gpg_key_url: "{{ docker_gpg_keys[ansible_facts['distribution']] }}"
 
 - name: Install required dependencies
   ansible.builtin.apt:
@@ -27,7 +27,7 @@
   ansible.builtin.apt_repository:
     repo: >-
      deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc]
-      {{ docker_repo }} {{ ansible_distribution_release }} stable
+      {{ docker_repo }} {{ ansible_facts['distribution_release'] }} stable
     state: present
     filename: docker
 
