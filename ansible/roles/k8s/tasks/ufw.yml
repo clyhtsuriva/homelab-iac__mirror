@@ -9,7 +9,7 @@
   community.general.ufw:
     rule: allow
     port: 6443
-    proto: tcp
+    proto: any
     comment: "Kubernetes API server"
   notify: Restart UFW
 
@@ -25,7 +25,7 @@
   community.general.ufw:
     rule: allow
     port: 10250
-    proto: tcp
+    proto: any
     comment: "Kubelet API"
   notify: Restart UFW
 
@@ -33,7 +33,7 @@
   community.general.ufw:
     rule: allow
     port: 10259
-    proto: tcp
+    proto: any
     comment: "kube-scheduler"
   notify: Restart UFW
 
@@ -41,7 +41,7 @@
   community.general.ufw:
     rule: allow
     port: 10257
-    proto: tcp
+    proto: any
     comment: "kube-controller-manager"
   notify: Restart UFW
 
@@ -49,7 +49,7 @@
   community.general.ufw:
     rule: allow
     port: 10256
-    proto: tcp
+    proto: any
     comment: "kube-proxy"
   notify: Restart UFW
 
@@ -59,6 +59,24 @@
     port: "30000:32767"
     proto: tcp
     comment: "NodePort services"
+  notify: Restart UFW
+
+- name: Allow from 10.42.0.0/16 to any
+  community.general.ufw:
+    rule: allow
+    from_ip: 10.42.0.0/16
+    to_ip: any
+    proto: any
+    comment: "pods"
+  notify: Restart UFW
+
+- name: Allow from 10.43.0.0/16 to any
+  community.general.ufw:
+    rule: allow
+    from_ip: 10.43.0.0/16
+    to_ip: any
+    proto: any
+    comment: "services"
   notify: Restart UFW
 
 - name: Enable UFW
