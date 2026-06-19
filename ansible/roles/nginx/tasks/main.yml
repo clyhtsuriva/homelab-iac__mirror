@@ -1,0 +1,4 @@
+---
+- name: Update nginx
+  ansible.builtin.include_tasks: update_nginx.yml
+...
