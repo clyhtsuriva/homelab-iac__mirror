@@ -35,4 +35,5 @@
     --token {{ k3s_token }}
   become: true
   when: not k3s_agent_installed.stat.exists
+  changed_when: true
 ...

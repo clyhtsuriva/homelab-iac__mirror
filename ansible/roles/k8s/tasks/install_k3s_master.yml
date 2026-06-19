@@ -26,6 +26,7 @@
   ansible.builtin.command: /opt/k3s/install_k3s.sh server --cluster-init
   become: true
   when: not k3s_installed.stat.exists
+  changed_when: true
 
 - name: Retrieve k3s token
   ansible.builtin.slurp:
