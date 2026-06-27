@@ -161,10 +161,8 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
   }
 }
 
-#resource "openstack_networking_floatingip_v2" "vpstest_floatip1" {
-#  pool = "Ext-Net"
-#}
-
+# OVH Openstack
+## Simple Debian Node
 #resource "openstack_compute_keypair_v2" "keypair" {
 #  name       = "tmv-keypair"
 #  public_key = var.ssh_public_key
@@ -175,7 +173,6 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
 #  image_id  = "e9e08190-20ce-49f6-9d72-e76ec22de82e" # Debian 13 UEFI
 #  flavor_id = "dc3fe9e7-e374-4ad8-b200-fa3bdf45069f" # d2-2
 #  key_pair  = "tmv-keypair"
-#  user_data = file("./test-add-user-terraform.yaml")
 #
 #  security_groups = ["default"]
 #
@@ -186,14 +183,4 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
 #  network {
 #    name = "Ext-Net"
 #  }
-#}
-
-#data "openstack_networking_port_v2" "vm-port" {
-#  device_id  = openstack_compute_instance_v2.debian13-uefi-test.id
-#  network_id = openstack_compute_instance_v2.debian13-uefi-test.network[0].uuid
-#}
-#
-#resource "openstack_networking_floatingip_associate_v2" "fip_vm" {
-#  floating_ip = openstack_networking_floatingip_v2.vpstest_floatip1.address
-#  port_id     = data.openstack_networking_port_v2.vm-port.id
 #}

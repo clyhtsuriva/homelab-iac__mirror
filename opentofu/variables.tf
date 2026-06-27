@@ -30,3 +30,9 @@ variable "ssh_public_key" {
   type      = string
   sensitive = true
 }
+
+variable "openstack_cloud_name" {
+  description = "An entry in a clouds.yaml. If omitted, the OS_CLOUD environment variable is used."
+  type        = string
+}
+

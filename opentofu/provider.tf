@@ -5,9 +5,5 @@ provider "proxmox" {
 }
 
 provider "openstack" {
-  # user_name   = var.openstack_user_name
-  # tenant_name = var.openstack_project_name
-  # password    = var.openstack_password
-  # auth_url    = var.openstack_api_url
-  # region      = var.openstack_region_name
+  cloud = var.openstack_cloud_name
 }
