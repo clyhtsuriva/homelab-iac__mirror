@@ -1,0 +1,16 @@
+---
+# https://docs.ansible.com/projects/ansible/latest/collections/openstack/cloud/openstack_inventory.html
+plugin: openstack.cloud.openstack
+all_projects: false
+expand_hostvars: true
+fail_on_errors: true
+only_clouds:
+  - "openstack"
+strict: true
+
+# Group VMs by tags for reference in playbooks.
+keyed_groups:
+  - key: openstack.metadata.tags | split(',') | map('trim') | list
+    prefix: "tag_"
+    separator: ""
+...
